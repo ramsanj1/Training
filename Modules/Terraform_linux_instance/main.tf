@@ -29,7 +29,9 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   network_interface_ids = [azurerm_network_interface.my_terraform_nic[each.key].id]
   size                  = each.value.size
   admin_username = each.value.admin_username
+  admin_password = each.value.admin_password
   disable_password_authentication = false 
+  custom_data = filebase64("C:/Users/devop/Desktop/Terraform_linux_instance/install_packages.sh"
 
 
   os_disk {
@@ -44,12 +46,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     sku       = "22_04-lts-gen2"
     version   = "latest"
   }
-  os_profile {
-    computer_name  = "hostname"
-    admin_username = each.value.admin_username
-    admin_password = each.value.admin_password
   }
-}
 
 
 
